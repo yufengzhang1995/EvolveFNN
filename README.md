@@ -3,4 +3,4 @@
 ### Author: Yufeng Zhang
 
 ### proposed framework
-![network]network.png
+![network](https://github.com/yufengzhang1995/EvolveFNN/blob/main/network.png)https://github.com/yufengzhang1995/EvolveFNN/blob/main/network.png)
