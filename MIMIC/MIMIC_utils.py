@@ -3,6 +3,7 @@ import platform
 import pickle
 import json
 import os
+import random
 
 class Reader(object):
     def __init__(self, dataset_dir, listfile=None):

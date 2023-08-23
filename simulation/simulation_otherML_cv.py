@@ -6,7 +6,6 @@ import numpy as np
 import xgboost, os
 import pandas as pd
 import pickle
-import sklearn
 from sklearn.model_selection import StratifiedShuffleSplit
 import utils
 from Classifier import GeneralizedFuzzyEvolveClassifier
@@ -120,28 +119,6 @@ def main():
             classifier = tree.DecisionTreeClassifier()
         elif model_name == 'EBM':
             classifier = ExplainableBoostingClassifier(random_state=random_state)
-        elif model_name == 'GFN':
-            classifier = GeneralizedFuzzyClassifier(
-             n_classes=2,
-             max_steps=800, #100000
-             category_info=all_category_info,
-             batch_size = 64,
-             learning_rate=0.1,
-             report_freq = 50, # 50
-             patience_step = 500, # 500
-             random_state=random_state,
-             epsilon_training=False,
-             binary_pos_only=True,
-             weighted_loss=[1.0, 1.0], #
-             split_method='sample_wise',
-             verbose=0,
-             val_ratio=0.3,
-             min_epsilon=0.9,
-             init_rule_index = None,
-             rule_data = None,
-             sparse_regu=1e-5,
-            corr_regu=1e-5,
-             ) 
 
         classifier.fit(X_train_all, y_train)
         print('train')

@@ -1,22 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import numpy as np
-import os
-import sklearn
-from sklearn import model_selection 
-import argparse
-import pickle
-import os,sys
-import numpy as np
-import xgboost, os
-import pandas as pd
-import pickle
-import sklearn
-from sklearn.model_selection import StratifiedShuffleSplit
-from sklearn.model_selection import RandomizedSearchCV
-import utils
-from Classifier import GeneralizedFuzzyEvolveClassifier
-import matplotlib.pyplot as plt
+
 
 def generate_simluated_time_series_data(n_samples,n_timestamp,mislabel = None,random_state=1234):
   np.random.seed(random_state)
@@ -65,30 +50,3 @@ def generate_simluated_time_series_data(n_samples,n_timestamp,mislabel = None,ra
   print('Positive samples: {:.2f}%'.format(np.sum(labels)/dynamic_features.shape[0]*100))
   return time_series_data,static_features, labels
 
-def split_data_into_K_fold(n_samples,n_split):
-  fold_taskname = np.empty(shape=(n_split, 3), dtype=object)
-
-  idx_all = sorted(range(n_samples))
-  for i_split, idx in enumerate(model_selection.KFold(5, shuffle=False).split(idx_all)):
-      fold_taskname[i_split][2] = idx[-1]
-  for i_split in range(n_split):
-      fold_taskname[i_split][1] = fold_taskname[(i_split + 1) % n_split][2]
-      fold_taskname[i_split][0] = np.asarray(sorted(set(idx_all).difference(fold_taskname[i_split][1]).difference(fold_taskname[i_split][2])))
-
-  print(fold_taskname[0][0].shape, fold_taskname[0][1].shape, fold_taskname[0][2].shape)
-  return fold_taskname
-
-def generagte_train_val_test_from_fold(time_series_data, labels, fold_taskname):
-  train_X = np.take(time_series_data,fold_taskname[0][0],axis = 0)
-  train_X = train_X.reshape((int(n_samples*0.6),-1))
-  train_y = np.take(labels,fold_taskname[0][0])
-
-  test_X = np.take(time_series_data,fold_taskname[0][2],axis = 0)
-  test_X = test_X.reshape((int(n_samples*0.2),-1))
-  test_y = np.take(labels,fold_taskname[0][2])
-
-  val_X = np.take(time_series_data,fold_taskname[0][1],axis = 0)
-  val_X = test_X.reshape((int(n_samples*0.2),-1))
-  val_y = np.take(labels,fold_taskname[0][1])
-
-  return train_X, train_y, test_X, test_y,val_X,val_y
