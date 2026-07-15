@@ -1,5 +1,6 @@
 # EvolveFNN: An interpretable framework for early detection using longitudinal electronic health record data
 
+Zhang, Yufeng, et al. "EvolveFNN: An interpretable framework for early detection using longitudinal electronic health record data." IEEE Journal of Biomedical and Health Informatics (2025).
 @Author: Yufeng Zhang chloezh@umich.edu
 
 ### proposed framework
